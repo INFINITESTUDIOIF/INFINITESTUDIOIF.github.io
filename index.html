@@ -390,7 +390,26 @@
       padding-top: 1rem;
     }
 
-    /* Hidden Easter Egg */
+    .creator-signature {
+      position: absolute;
+      bottom: 2rem;
+      right: 2rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.1);
+      font-style: italic;
+      font-weight: 300;
+      pointer-events: none;
+      user-select: none;
+      z-index: 1;
+      transform: rotate(-5deg);
+      transition: all 0.3s ease;
+    }
+
+    .creator-signature:hover {
+      color: rgba(0, 102, 255, 0.3);
+      transform: rotate(-5deg) scale(1.1);
+    }
     .easter-egg {
       position: fixed;
       bottom: 10px;
@@ -439,6 +458,12 @@
 
       .business-details {
         font-size: 0.65rem;
+      }
+
+      .creator-signature {
+        font-size: 0.7rem;
+        bottom: 1rem;
+        right: 1rem;
       }
     }
 
@@ -501,6 +526,7 @@
   <section id="hero" class="hero section active">
     <div class="hero-bg"></div>
     <div class="hero-grid"></div>
+    <div class="creator-signature">~ Crafted by Rishi Nakrani</div>
     <div class="hero-content">
       <h1>INFINITE</h1>
       <p class="hero-subtitle">Professional Video Editing & Digital Content Creation</p>
@@ -680,7 +706,7 @@
           <div>🏢 Sole Proprietorship: UDYAM-GJ-01-0515180</div>
         </div>
         <div class="copyright">
-          © 2024 Infinite Studio IF. All rights reserved.
+          © 2024 Infinite Studio IF. All rights reserved. | Created By Rishi Nakrani
         </div>
       </div>
     </footer>
