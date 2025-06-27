@@ -3,85 +3,760 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Official site of Infinite Studio IF, a creative platform operated under the business Infinite.">
+  <meta name="description" content="Infinite Studio IF - Professional video editing and digital content creation services">
   <title>Infinite Studio IF</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    body {
+    :root {
+      --primary: #0066ff;
+      --primary-dark: #0052cc;
+      --bg-dark: #0a0a0a;
+      --bg-card: #111111;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0a0;
+      --border: #1a1a1a;
+      --glow: rgba(0, 102, 255, 0.3);
+    }
+
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #1b2735, #090a0f);
-      color: #ffffff;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      padding: 1rem 0;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    .logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 400;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+      z-index: -2;
+    }
+
+    .hero-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 102, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 102, 255, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: -1;
+      animation: grid-move 20s linear infinite;
+    }
+
+    @keyframes grid-move {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+
+    .hero-content {
+      text-align: center;
+      max-width: 800px;
+      padding: 0 2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 0%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 102, 255, 0.3);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(0, 102, 255, 0.4);
+      color: white;
+    }
+
+    /* Sections */
+    .section {
+      display: none;
+      min-height: 100vh;
+      padding: 8rem 2rem 4rem;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 4rem;
+      color: var(--text-primary);
+    }
+
+    /* Services */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 102, 255, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .service-card:hover::before {
+      left: 100%;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px rgba(0, 102, 255, 0.1);
+    }
+
+    .service-icon {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .service-card p {
+      color: var(--text-secondary);
+    }
+
+    /* Portfolio */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .portfolio-item {
+      background: var(--bg-card);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .portfolio-item:hover {
+      transform: scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .portfolio-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      color: white;
+    }
+
+    .portfolio-content {
+      padding: 1.5rem;
+    }
+
+    .portfolio-content h3 {
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .portfolio-content p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* About */
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-text h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .about-text p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .about-image {
+      width: 100%;
+      height: 400px;
+      background: linear-gradient(45deg, var(--bg-card), var(--primary));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      color: var(--primary);
+    }
+
+    /* Contact */
+    .contact-content {
+      max-width: 600px;
+      margin: 0 auto;
       text-align: center;
     }
-    h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 4rem;
-      color: #00bfff;
-      margin-top: 30px;
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin: 3rem 0;
+      flex-wrap: wrap;
     }
-    .logo {
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 3px solid #00bfff;
-      margin-top: 50px;
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
     }
-    p {
-      font-size: 1.2rem;
-      margin-top: 20px;
+
+    .contact-item i {
+      font-size: 2rem;
+      color: var(--primary);
     }
-    .hero {
-      padding: 40px 20px 80px;
+
+    .contact-item a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s ease;
     }
-    .contact {
-      background: #0f0f0f;
-      padding: 40px 20px;
+
+    .contact-item a:hover {
+      color: var(--primary);
     }
-    .contact p {
-      font-size: 1.1rem;
-      color: #aaa;
-    }
+
+    /* Footer */
     .footer {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .business-details {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: rgba(160, 160, 160, 0.6);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .business-details div {
+      margin-bottom: 0.3rem;
+    }
+
+    .copyright {
       font-size: 0.8rem;
-      color: #666;
-      padding: 10px;
+      color: rgba(160, 160, 160, 0.4);
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+
+    /* Hidden Easter Egg */
+    .easter-egg {
       position: fixed;
-      bottom: 0;
+      bottom: 10px;
+      right: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      color: rgba(0, 102, 255, 0.1);
+      z-index: 9999;
+      user-select: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .easter-egg:hover {
+      color: var(--primary);
+      transform: scale(1.5);
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .nav-links a {
+        font-size: 0.9rem;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .contact-info {
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .business-details {
+        font-size: 0.65rem;
+      }
+    }
+
+    /* Loading Animation */
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      text-align: right;
-      padding-right: 20px;
+      height: 100%;
+      background: var(--bg-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
     }
-    .glow {
-      text-shadow: 0 0 5px #00bfff, 0 0 10px #00bfff, 0 0 20px #00bfff;
+
+    .loading.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
-    .btn-outline-light:hover {
-      background-color: #00bfff;
-      color: #000;
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid var(--border);
+      border-top: 3px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
-  <div class="hero">
-    <img src="logo.jpg" alt="Infinite Studio IF Logo" class="logo">
-    <h1 class="glow">INFINITE</h1>
-    <p>Welcome to <strong>Infinite Studio IF</strong><br>
-    A digital creation space by <strong>Infinite</strong>.</p>
-    <p>We build visuals, inspire edits, and shape your vision with precision.</p>
-    <a href="mailto:info@infiniteif.com" class="btn btn-outline-light mt-4">Contact Us</a>
+  <!-- Loading Screen -->
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
   </div>
 
-  <div class="contact">
-    <h3 class="glow">Get in Touch</h3>
-    <p>Email us at: <a href="mailto:info@infiniteif.com" style="color:#00bfff">info@infiniteif.com</a></p>
-    <p>infiniteif.com is operated under the sole proprietorship <strong>Infinite</strong>.</p>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo">INFINITE</a>
+      <ul class="nav-links">
+        <li><a href="#" onclick="showSection('hero')" class="active">Home</a></li>
+        <li><a href="#" onclick="showSection('services')">Services</a></li>
+        <li><a href="#" onclick="showSection('portfolio')">Portfolio</a></li>
+        <li><a href="#" onclick="showSection('about')">About</a></li>
+        <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero section active">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <h1>INFINITE</h1>
+      <p class="hero-subtitle">Professional Video Editing & Digital Content Creation</p>
+      <a href="#" onclick="showSection('contact')" class="cta-button">
+        <i class="fas fa-play"></i>
+        Start Your Project
+      </a>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="section">
+    <div class="container">
+      <h2 class="section-title">Our Services</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-video"></i>
+          </div>
+          <h3>Video Editing</h3>
+          <p>Professional video editing for businesses, content creators, and brands. From concept to final cut.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-magic"></i>
+          </div>
+          <h3>Motion Graphics</h3>
+          <p>Dynamic motion graphics and visual effects that bring your content to life with stunning animations.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-palette"></i>
+          </div>
+          <h3>Color Grading</h3>
+          <p>Professional color correction and grading to enhance the visual appeal of your videos.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-film"></i>
+          </div>
+          <h3>Post Production</h3>
+          <p>Complete post-production services including audio editing, visual effects, and final delivery.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3>Social Media Content</h3>
+          <p>Optimized video content for social media platforms with engaging formats and storytelling.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <h3>Corporate Videos</h3>
+          <p>Professional corporate video production for training, marketing, and brand communication.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="section">
+    <div class="container">
+      <h2 class="section-title">Our Work</h2>
+      <div class="portfolio-grid">
+        <div class="portfolio-item">
+          <div class="portfolio-image">
+            <i class="fas fa-play-circle"></i>
+          </div>
+          <div class="portfolio-content">
+            <h3>Brand Campaign</h3>
+            <p>High-impact video campaign for major brand launch</p>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-image">
+            <i class="fas fa-camera"></i>
+          </div>
+          <div class="portfolio-content">
+            <h3>Product Showcase</h3>
+            <p>Dynamic product demonstration with motion graphics</p>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-image">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="portfolio-content">
+            <h3>Corporate Training</h3>
+            <p>Engaging training modules with interactive elements</p>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-image">
+            <i class="fas fa-heart"></i>
+          </div>
+          <div class="portfolio-content">
+            <h3>Social Impact</h3>
+            <p>Emotional storytelling for non-profit organization</p>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-image">
+            <i class="fas fa-rocket"></i>
+          </div>
+          <div class="portfolio-content">
+            <h3>Startup Launch</h3>
+            <p>Creative launch video for tech startup</p>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div class="portfolio-image">
+            <i class="fas fa-music"></i>
+          </div>
+          <div class="portfolio-content">
+            <h3>Music Video</h3>
+            <p>Artistic music video with visual effects</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-text">
+          <h2>About Infinite Studio IF</h2>
+          <p>We are a digital creation studio specializing in professional video editing and content creation. Our mission is to bring your vision to life through cutting-edge editing techniques and creative storytelling.</p>
+          <p>With years of experience in the industry, we've worked with businesses of all sizes to create compelling visual content that engages audiences and drives results.</p>
+          <p>Every project is approached with precision, creativity, and attention to detail, ensuring that your message is delivered with maximum impact.</p>
+        </div>
+        <div class="about-image">
+          <i class="fas fa-infinity"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="contact-content">
+        <h2 class="section-title">Get In Touch</h2>
+        <p>Ready to start your next project? Let's create something amazing together.</p>
+        
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:info@infiniteif.com">info@infiniteif.com</a>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-globe"></i>
+            <span>infiniteif.com</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-building"></i>
+            <span>Operated under Infinite</span>
+          </div>
+        </div>
+
+        <a href="mailto:info@infiniteif.com" class="cta-button">
+          <i class="fas fa-paper-plane"></i>
+          Send Message
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="business-details">
+          <div>📍 A/203 Silver Strokes Appartement, Bopal, Ahmedabad, Gujarat</div>
+          <div>📱 +91 94099 01301</div>
+          <div>🏢 Sole Proprietorship: UDYAM-GJ-01-0515180</div>
+        </div>
+        <div class="copyright">
+          © 2024 Infinite Studio IF. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  <!-- Easter Egg -->
+  <div class="easter-egg" onclick="revealEasterEgg()">
+    <!-- Udyum hidden here -->
+    <span style="opacity: 0;">U</span><span style="opacity: 0;">d</span><span style="opacity: 0;">y</span><span style="opacity: 0;">u</span><span style="opacity: 0;">m</span>
   </div>
 
-  <div class="footer">
-    Created by Rishi Nakrani
-  </div>
+  <script>
+    // Loading animation
+    window.addEventListener('load', function() {
+      setTimeout(() => {
+        document.getElementById('loading').classList.add('hidden');
+      }, 1000);
+    });
+
+    // Navigation
+    function showSection(sectionId) {
+      // Hide all sections
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      // Show selected section
+      document.getElementById(sectionId).classList.add('active');
+      
+      // Update navigation
+      const navLinks = document.querySelectorAll('.nav-links a');
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+      });
+      
+      event.target.classList.add('active');
+    }
+
+    // Easter egg reveal
+    function revealEasterEgg() {
+      const easterEgg = document.querySelector('.easter-egg');
+      const spans = easterEgg.querySelectorAll('span');
+      
+      spans.forEach((span, index) => {
+        setTimeout(() => {
+          span.style.opacity = '1';
+          span.style.color = '#0066ff';
+        }, index * 200);
+      });
+      
+      setTimeout(() => {
+        alert('🎉 You found the hidden ID: Udyum');
+      }, 1200);
+    }
+
+    // Smooth scrolling for portfolio items
+    document.querySelectorAll('.portfolio-item').forEach(item => {
+      item.addEventListener('click', function() {
+        this.style.transform = 'scale(0.98)';
+        setTimeout(() => {
+          this.style.transform = 'scale(1.02)';
+        }, 100);
+      });
+    });
+
+    // Service card hover effects
+    document.querySelectorAll('.service-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.borderColor = '#0066ff';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.borderColor = '#1a1a1a';
+      });
+    });
+  </script>
 </body>
 </html>
